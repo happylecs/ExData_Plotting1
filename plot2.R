@@ -1,5 +1,6 @@
-# Read Data to powerCon object
 # Requires plyr package
+
+# Read Data to powerCon object
 library(plyr)
 fileConn <- file("household_power_consumption.txt")
 lines<-readLines(fileConn)
@@ -19,9 +20,11 @@ rm(lines)
 powerCon$DateTime <- strptime(
   paste(powerCon$Date,powerCon$Time),"%d/%m/%Y %H:%M:%S")
 powerCon[,c(3:9)]<-as.data.frame(lapply(powerCon[,c(3:9)],as.numeric))
+# End of data processing
 
 #Plot  2
 png(filename = "plot2.png",width = 480, height = 480)
+par(mfrow=c(1,1))
 plot(powerCon$DateTime,powerCon$Global_active_power,col="white"
      ,xlab="",ylab="Global Active Power (kilowatts)")
 lines(powerCon$DateTime,powerCon$Global_active_power)
